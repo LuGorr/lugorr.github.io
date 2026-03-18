@@ -48,16 +48,24 @@ body {
 
 /* ── 4. MONOSPACE SECTION HEADERS (Accent Font) ──────────────── */
 section header h2,
-section .main-body h1, 
-section .main-body h2, 
-section .main-body h3, 
-section .main-body h4,
 #home-subtitle, 
 #projects-subtitle, 
 #experience-subtitle {
     font-family: 'JetBrains Mono', monospace !important;
     color: var(--h-title-color);
     font-size: 2rem; /* Slightly smaller as Mono fonts run wide */
+    font-weight: 700;
+    text-transform: lowercase;
+    letter-spacing: -0.04em; 
+    line-height: 4rem;
+}
+
+section .main-body h1, 
+section .main-body h2, 
+section .main-body h3, 
+section .main-body h4 {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 1.8rem; /* Slightly smaller as Mono fonts run wide */
     font-weight: 700;
     text-transform: lowercase;
     letter-spacing: -0.04em; 

@@ -21,7 +21,6 @@ body {
     font-family: 'JetBrains Mono', monospace !important;
     font-weight: 700 !important;
     letter-spacing: -0.05em !important;
-    text-transform: lowercase; /* Matches your "lugorr" aesthetic */
 }
 
 /* ── 2. NAVIGATION & HEADER ───────────────────────────────────── */

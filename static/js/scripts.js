@@ -38,6 +38,7 @@ window.addEventListener('DOMContentLoaded', event => {
             Object.keys(yml).forEach(key => {
                 try {
                     document.getElementById(key).innerHTML = yml[key];
+                    initReportToggles();
                 } catch {
                     console.log("Unknown id and value: " + key + "," + yml[key].toString())
                 }

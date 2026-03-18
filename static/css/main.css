@@ -159,3 +159,20 @@ a.report-toggle-btn.active {
     position: relative;
     top: -1px;
 }
+
+/* Custom Monospace Overrides for Section Headers */
+#home-subtitle, 
+#projects-subtitle, 
+#experience-subtitle {
+    font-family: 'Roboto Mono', 'Courier New', monospace !important;
+    font-weight: 600;
+    letter-spacing: -0.02em; /* Monospace sometimes needs tighter spacing */
+    text-transform: uppercase; /* Keeps the professional "label" look */
+}
+
+/* Optional: If you want the icons inside to match the size better */
+#projects-subtitle i, 
+#experience-subtitle i {
+    font-size: 0.9em;
+    vertical-align: baseline;
+}

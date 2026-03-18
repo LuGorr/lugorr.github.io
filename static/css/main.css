@@ -3,13 +3,14 @@
 /* ── 1. GLOBAL VARIABLES & FONTS ──────────────────────────────── */
 :root {
     --h-title-color: #3948d2;
-    /* Overriding Bootstrap Defaults to Roboto */
-    --bs-body-font-family: 'Roboto', sans-serif !important;
-    --bs-font-sans-serif: 'Roboto', sans-serif !important;
+    /* Inter is the base; JetBrains is the accent */
+    --bs-body-font-family: 'Inter', -apple-system, sans-serif !important;
+    --bs-font-sans-serif: 'Inter', -apple-system, sans-serif !important;
 }
 
 body {
-    font-family: 'Roboto', sans-serif !important;
+    font-family: 'Inter', sans-serif !important;
+    -webkit-font-smoothing: antialiased; /* Makes Inter look crisp on Mac */
 }
 
 /* ── 2. NAVIGATION & HEADER ───────────────────────────────────── */
@@ -31,52 +32,47 @@ body {
 .top-section {
     position: relative;
     padding: 10rem 0;
-    background-position: center;
-    background-size: cover;
+    background-color: #0b0e14;
     height: 25rem;
     display: flex;
     align-items: center;
 }
 
-.top-section:before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-}
-
 .top-section h2 {
-    font-weight: 400;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.03em; /* Tight tracking for hero text */
     position: relative;
     z-index: 1;
 }
 
-/* ── 4. SECTION HEADERS (MONOSPACE) ───────────────────────────── */
+/* ── 4. MONOSPACE SECTION HEADERS (Accent Font) ──────────────── */
 section header h2,
 #home-subtitle, 
 #projects-subtitle, 
 #experience-subtitle {
-    font-family: 'Roboto Mono', monospace !important;
+    font-family: 'JetBrains Mono', monospace !important;
     color: var(--h-title-color);
-    font-size: 2.3rem;
+    font-size: 2rem; /* Slightly smaller as Mono fonts run wide */
+    font-weight: 700;
+    text-transform: lowercase; /* Very modern "dev" aesthetic */
+    letter-spacing: -0.04em; 
     line-height: 4rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: -0.02em;
-}
-
-/* Icon alignment inside headers */
-section header h2 i {
-    font-size: 0.9em;
-    vertical-align: baseline;
-    margin-right: 8px;
 }
 
 /* ── 5. MAIN CONTENT BODY ─────────────────────────────────────── */
 section .main-body {
-    font-size: 1.3rem;
-    font-weight: 300; /* Roboto looks great at 300/400 */
-    line-height: 2.4rem;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 1.15rem; /* Inter is a "big" font, so 1.15rem is plenty */
+    font-weight: 400;
+    line-height: 1.8; /* Increased line-height for readability */
+    color: #2d3436;
+}
+
+/* Bold text inside body looks great in Inter 600 */
+section .main-body strong, 
+section .main-body b {
+    font-weight: 600;
 }
 
 /* ── 6. LAYOUT & AVATAR ───────────────────────────────────────── */
@@ -92,36 +88,26 @@ section .main-body {
 
 #avatar img {
     height: max(130px, min(200px, calc(100vw / 6)));
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
-    border-radius: 50%; /* Optional: nice for avatars */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 12px; /* Modern slightly rounded corners */
 }
 
-/* ── 7. UTILITIES & COMPONENTS ────────────────────────────────── */
-.bg-bottom { background-color: var(--h-title-color); }
-
+/* ── 7. UTILITIES & GRADIENTS ─────────────────────────────────── */
 .bg-gradient-primary-to-secondary-light {
-    background: linear-gradient(45deg, #fcfcfc, #ffffff) !important;
+    background: #ffffff !important;
 }
 
 .bg-gradient-primary-to-secondary-gray {
-    background: linear-gradient(45deg, #f0f0f0, #f1f1f1) !important;
+    background: #f8f9fa !important; /* Subtle gray for contrast */
 }
 
 /* PDF Toggle Styling */
 .pdf-viewer-container {
     display: none;
     margin-top: 12px;
-    width: 100%;
-    border: 1px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .pdf-viewer-container.open { display: block; }
-.pdf-viewer-container iframe { width: 100%; height: 600px; border: none; }
-
-/* Responsive adjustments */
-@media screen and (max-width: 991px) {
-    #avatar { margin: 0; float: none; text-align: center; height: auto; top: -50px; }
-}

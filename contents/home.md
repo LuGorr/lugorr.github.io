@@ -10,7 +10,7 @@ Email: ludovico.gorrieri@studio.unibo.it
 
 #### Education
 M.E., AI Engineering, Italy - University of Bologna, 2024—Ongoing.\
-B.S., Computer Science, Italy - University of Parma, 2021-2024.\
+B.S., Computer Science, Italy - University of Parma, 2021-2024.
 
 #### Research Interests
 Fairness in AI; Computer Vision; Explainable AI; Explainable Uncertainty Estimation

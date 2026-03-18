@@ -9,7 +9,7 @@
 }
 
 body {
-    font-family: 'Inter', sans-serif !important;
+    font-family: 'JetBrains Mono', monospace !important;
     -webkit-font-smoothing: antialiased; /* Makes Inter look crisp on Mac */
 }
 
@@ -39,7 +39,7 @@ body {
 }
 
 .top-section h2 {
-    font-family: 'Inter', sans-serif;
+    font-family: 'JetBrains Mono', monospace !important;
     font-weight: 700;
     letter-spacing: -0.03em; /* Tight tracking for hero text */
     position: relative;
@@ -55,14 +55,14 @@ section header h2,
     color: var(--h-title-color);
     font-size: 2rem; /* Slightly smaller as Mono fonts run wide */
     font-weight: 700;
-    
+    text-transform: lowercase;
     letter-spacing: -0.04em; 
     line-height: 4rem;
 }
 
 /* ── 5. MAIN CONTENT BODY ─────────────────────────────────────── */
 section .main-body {
-    font-family: 'Inter', sans-serif !important;
+    font-family: 'JetBrains Mono', monospace !important;
     font-size: 1.15rem; /* Inter is a "big" font, so 1.15rem is plenty */
     font-weight: 400;
     line-height: 1.8; /* Increased line-height for readability */

@@ -4,8 +4,8 @@
 :root {
     --h-title-color: #3948d2;
     /* Inter is the base; JetBrains is the accent */
-    --bs-body-font-family: 'Inter', -apple-system, sans-serif !important;
-    --bs-font-sans-serif: 'Inter', -apple-system, sans-serif !important;
+    --bs-body-font-family: 'JetBrains Mono', monospace !important;
+    --bs-font-sans-serif: 'JetBrains Mono', monospace !important;
 }
 
 body {

@@ -35,7 +35,12 @@ window.addEventListener('DOMContentLoaded', event => {
             const yml = jsyaml.load(text);
             Object.keys(yml).forEach(key => {
                 try {
-                    document.getElementById(key).innerHTML = yml[key];
+                    if (key === 'page-top-title') {
+                        document.getElementById(key).innerHTML =
+                        '<img src="static/assets/favicon.ico" class="nav-favicon" alt=""> ' + yml[key];
+                    } else {
+                        document.getElementById(key).innerHTML = yml[key];
+                    }
                 } catch {
                     console.log("Unknown id and value: " + key + "," + yml[key].toString())
                 }

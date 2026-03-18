@@ -150,3 +150,12 @@ a.report-toggle-btn.active::after {
 a.report-toggle-btn.active {
     opacity: 0.8;
 }
+
+.nav-favicon {
+    height: 1.2em;
+    width: auto;
+    vertical-align: middle;
+    margin-right: 6px;
+    position: relative;
+    top: -1px;
+}

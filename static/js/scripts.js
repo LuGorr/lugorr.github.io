@@ -1,70 +1,4 @@
-
-
-const content_dir = 'contents/'
-const config_file = 'config.yml'
-const section_names = ['home', 'projects', 'experience']
-
-
-window.addEventListener('DOMContentLoaded', event => {
-
-    // Activate Bootstrap scrollspy on the main nav element
-    const mainNav = document.body.querySelector('#mainNav');
-    if (mainNav) {
-        new bootstrap.ScrollSpy(document.body, {
-            target: '#mainNav',
-            offset: 74,
-        });
-    };
-
-    // Collapse responsive navbar when toggler is visible
-    const navbarToggler = document.body.querySelector('.navbar-toggler');
-    const responsiveNavItems = [].slice.call(
-        document.querySelectorAll('#navbarResponsive .nav-link')
-    );
-    responsiveNavItems.map(function (responsiveNavItem) {
-        responsiveNavItem.addEventListener('click', () => {
-            if (window.getComputedStyle(navbarToggler).display !== 'none') {
-                navbarToggler.click();
-            }
-        });
-    });
-
-
-    // Yaml
-    fetch(content_dir + config_file)
-        .then(response => response.text())
-        .then(text => {
-            const yml = jsyaml.load(text);
-            Object.keys(yml).forEach(key => {
-                try {
-                    document.getElementById(key).innerHTML = yml[key];
-                } catch {
-                    console.log("Unknown id and value: " + key + "," + yml[key].toString())
-                }
-
-            })
-        })
-        .catch(error => console.log(error));
-
-
-    // Marked
-    marked.use({ mangle: false, headerIds: false })
-    section_names.forEach((name, idx) => {
-        fetch(content_dir + name + '.md')
-            .then(response => response.text())
-            .then(markdown => {
-                const html = marked.parse(markdown);
-                document.getElementById(name + '-md').innerHTML = html;
-            }).then(() => {
-                // MathJax
-                MathJax.typeset();
-            })
-            .catch(error => console.log(error));
-    })
-
-}); 
-
-// Game of Life Implementation
+// --- 1. LOGICA GAME OF LIFE ---
 const canvas = document.getElementById('gameOfLifeCanvas');
 if (canvas) {
     const ctx = canvas.getContext('2d');
@@ -76,21 +10,17 @@ if (canvas) {
         height = container.offsetHeight;
         canvas.width = width;
         canvas.height = height;
-
-        cellSize = 12; // Dimensione dei quadrati
+        cellSize = 10;
         cols = Math.ceil(width / cellSize);
         rows = Math.ceil(height / cellSize);
-
-        // Popolamento iniziale casuale
         grid = Array.from({ length: cols }, () =>
-            Array.from({ length: rows }, () => Math.random() > 0.85 ? 1 : 0)
+            Array.from({ length: rows }, () => Math.random() > 0.88 ? 1 : 0)
         );
     }
 
-    function updateAndDraw() {
+    function draw() {
         ctx.clearRect(0, 0, width, height);
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.1)'; // Colore delle cellule
-
+        ctx.fillStyle = 'rgba(100, 200, 255, 0.3)'; // Blu tenue hi-tech
         let nextGrid = grid.map(arr => [...arr]);
 
         for (let col = 0; col < cols; col++) {
@@ -98,7 +28,6 @@ if (canvas) {
                 if (grid[col][row]) {
                     ctx.fillRect(col * cellSize, row * cellSize, cellSize - 1, cellSize - 1);
                 }
-
                 let neighbors = 0;
                 for (let i = -1; i < 2; i++) {
                     for (let j = -1; j < 2; j++) {
@@ -108,7 +37,6 @@ if (canvas) {
                         neighbors += grid[x][y];
                     }
                 }
-
                 if (grid[col][row] === 1 && (neighbors < 2 || neighbors > 3)) nextGrid[col][row] = 0;
                 else if (grid[col][row] === 0 && neighbors === 3) nextGrid[col][row] = 1;
             }
@@ -117,11 +45,38 @@ if (canvas) {
     }
 
     function loop() {
-        updateAndDraw();
-        setTimeout(() => requestAnimationFrame(loop), 150);
+        draw();
+        setTimeout(() => requestAnimationFrame(loop), 120);
     }
 
     window.addEventListener('resize', initGame);
     initGame();
     loop();
 }
+
+// --- 2. LOGICA ORIGINALE TEMPLATE (CARICAMENTO YAML) ---
+async function loadContent() {
+    try {
+        const response = await fetch('static/data/index.yml');
+        const text = await response.text();
+        const data = jsyaml.load(text);
+
+        // Popolamento dei campi
+        document.getElementById('title').innerText = data.title || "Academic Page";
+        document.getElementById('page-top-title').innerText = data.name || "Home";
+        document.getElementById('top-section-bg-text').innerText = data.banner_text || "";
+        document.getElementById('home-subtitle').innerText = data.home_subtitle || "About Me";
+        document.getElementById('copyright-text').innerText = data.copyright || "";
+
+        // Markdown rendering
+        if(data.home_md) document.getElementById('home-md').innerHTML = marked.parse(data.home_md);
+        if(data.projects_md) document.getElementById('projects-md').innerHTML = marked.parse(data.projects_md);
+        if(data.experience_md) document.getElementById('experience-md').innerHTML = marked.parse(data.experience_md);
+
+    } catch (e) {
+        console.error("Errore nel caricamento del file YAML:", e);
+    }
+}
+
+// Avvia il caricamento dei contenuti
+document.addEventListener('DOMContentLoaded', loadContent);

@@ -65,11 +65,9 @@ section .main-body h2,
 section .main-body h3, 
 section .main-body h4 {
     font-family: 'JetBrains Mono', monospace !important;
-    font-size: 1.8rem; /* Slightly smaller as Mono fonts run wide */
+    font-size: 1.5rem; /* Slightly smaller as Mono fonts run wide */
     font-weight: 700;
     text-transform: lowercase;
-    letter-spacing: -0.04em; 
-    line-height: 4rem;
 }
 
 /* ── 5. MAIN CONTENT BODY ─────────────────────────────────────── */

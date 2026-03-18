@@ -2,7 +2,7 @@
 
 [![senli1073](https://img.shields.io/badge/LuGorr-github-blue?logo=github)](https://github.com/LuGorr)
 
-Currently a student in AI Engineering at University of Bologna.
+Currently a second year student in AI Engineering at University of Bologna.
 
 #### Contact
 

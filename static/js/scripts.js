@@ -132,3 +132,54 @@ window.addEventListener('load', function() {
     init();
     animate();
 });
+
+function initReportToggles() {
+  const projectsDiv = document.getElementById("projects-md");
+  if (!projectsDiv) return;
+
+  // Find all links whose text contains "report" (case-insensitive) or href ends in .pdf
+  const links = Array.from(projectsDiv.querySelectorAll("a")).filter(a => {
+    const isReport = a.textContent.trim().toLowerCase().includes("report");
+    const isPdf = a.getAttribute("href")?.toLowerCase().endsWith(".pdf");
+    return isReport || isPdf;
+  });
+
+  links.forEach((link, i) => {
+    const pdfUrl = link.getAttribute("href");
+    const containerId = `pdf-viewer-${i}`;
+
+    // Create the collapsible iframe container
+    const container = document.createElement("div");
+    container.className = "pdf-viewer-container";
+    container.id = containerId;
+
+    const iframe = document.createElement("iframe");
+    iframe.src = "";  // lazy-load: only set src when opened
+    iframe.setAttribute("data-src", pdfUrl);
+    iframe.title = "Report PDF";
+    container.appendChild(iframe);
+
+    // Convert the link into a toggle button (preserve its style/class)
+    link.removeAttribute("href");
+    link.setAttribute("role", "button");
+    link.classList.add("report-toggle-btn");
+    link.setAttribute("aria-expanded", "false");
+    link.setAttribute("aria-controls", containerId);
+
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      const isOpen = container.classList.toggle("open");
+      link.classList.toggle("active", isOpen);
+      link.setAttribute("aria-expanded", String(isOpen));
+
+      // Lazy-load the PDF src on first open
+      if (isOpen && !iframe.src) {
+        iframe.src = iframe.getAttribute("data-src");
+      }
+    });
+
+    // Insert the container right after the link's parent paragraph/element
+    const insertAfter = link.closest("p") || link.closest("li") || link.parentElement;
+    insertAfter.after(container);
+  });
+}

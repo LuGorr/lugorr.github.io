@@ -10,7 +10,7 @@
 
 - Round Robin Tournament Scheduling [[Code]](https://github.com/LuGorr/Round-Robin-Tournament) [[Report]](static/assets/pdfs/Round-Robin-Tournament.pdf)
 
-- Kitten Breed Classification [[Code]](https://doi.org/10.13225/j.cnki.jccs.2023.0095)
+- Kitten Breed Classification [[Code]](https://github.com/LuGorr/KitteNet)
 
-- Automated Malware Analysis and SIEM Integration [[Code]](https://doi.org/10.13225/j.cnki.jccs.2022.0680) [[Thesis]](https://doi.org/10.13225/j.cnki.jccs.2022.0680)
+- Automated Malware Analysis and SIEM Integration [[Thesis]](static/assets/pdfs/tesi.pdf)
 

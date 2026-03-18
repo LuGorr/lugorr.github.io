@@ -55,7 +55,7 @@ section header h2,
     color: var(--h-title-color);
     font-size: 2rem; /* Slightly smaller as Mono fonts run wide */
     font-weight: 700;
-    text-transform: lowercase; /* Very modern "dev" aesthetic */
+    
     letter-spacing: -0.04em; 
     line-height: 4rem;
 }

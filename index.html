@@ -13,13 +13,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&amp;display=swap"
-        rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;display=swap"
-        rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet" />
 
     <link type="text/css" href="static/css/styles.css" rel="stylesheet" />
     <link type="text/css" href="static/css/main.css" rel="stylesheet" />
@@ -77,10 +73,10 @@
         </div>
     </nav>
 
-    <section class="top-section" style="position: relative; background-color: #111; overflow: hidden;">
+    <section class="top-section" style="position: relative; background-color: #0b0e14; overflow: hidden; min-height: 400px; display: flex; align-items: center;">
         <canvas id="golCanvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;"></canvas>
         
-        <div class="top-section-content" style="position: relative; z-index: 1;">
+        <div class="top-section-content" style="position: relative; z-index: 1; width: 100%;">
             <div class="container px-5">
                 <h2 id="top-section-bg-text" class="text-white display-3 lh-1 font-alt"></h2>
             </div>
@@ -95,21 +91,27 @@
     
     <section class="bg-gradient-primary-to-secondary-light mt5 md5" id="home">
         <div class="container px-5">
-            <header><h2 id="home-subtitle"> </h2></header>
+            <header>
+                <h2 id="home-subtitle"> </h2>
+            </header>
             <div class="main-body" id="home-md"></div>
         </div>
     </section>
 
     <section class="bg-gradient-primary-to-secondary-gray mt5 md5" id="projects">
         <div class="container px-5">
-            <header><h2 id="projects-subtitle"><i class="bi bi-file-text-fill"></i>&nbsp;PROJECTS</h2></header>
+            <header>
+                <h2 id="projects-subtitle"><i class="bi bi-file-text-fill"></i>&nbsp;PROJECTS</h2>
+            </header>
             <div class="main-body" id="projects-md"></div>
         </div>
     </section>
 
     <section class="bg-gradient-primary-to-secondary-light mt5 md5" id="experience">
         <div class="container px-5">
-            <header><h2 id="experience-subtitle"><i class="bi bi-award-fill"></i>EXPERIENCE </h2></header>
+            <header>
+                <h2 id="experience-subtitle"><i class="bi bi-award-fill"></i>EXPERIENCE </h2>
+            </header>
             <div class="main-body" id="experience-md"></div>
         </div>
     </section>
@@ -125,4 +127,5 @@
         </div>
     </footer>
 </body>
+
 </html>

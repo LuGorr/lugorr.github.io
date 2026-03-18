@@ -109,33 +109,44 @@ section .main-body{
     }
 }
 
-/* PDF report toggle */
+/* ── PDF report toggle ───────────────────────────────────────────── */
+
 .pdf-viewer-container {
-  display: none;
-  margin-top: 12px;
-  width: 100%;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    display: none;
+    margin-top: 12px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    transition: box-shadow 0.2s ease;
 }
 
 .pdf-viewer-container.open {
-  display: block;
+    display: block;
 }
 
 .pdf-viewer-container iframe {
-  display: block;
-  width: 100%;
-  height: 600px;
-  border: none;
+    display: block;
+    width: 100%;
+    height: 600px;
+    border: none;
 }
 
 a.report-toggle-btn {
-  cursor: pointer;
+    cursor: pointer;
+    user-select: none;
+}
+
+a.report-toggle-btn::after {
+    content: " ▾";
+    font-size: 0.8em;
+}
+
+a.report-toggle-btn.active::after {
+    content: " ▴";
 }
 
 a.report-toggle-btn.active {
-  opacity: 0.75;
+    opacity: 0.8;
 }
-

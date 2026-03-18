@@ -13,6 +13,17 @@ body {
     -webkit-font-smoothing: antialiased; /* Makes Inter look crisp on Mac */
 }
 
+/* ── 8. NAVBAR & BRAND TITLE ────────────────────────────────── */
+.navbar-brand, 
+.header a, 
+.header .logo,
+.nav-link {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.05em !important;
+    text-transform: lowercase; /* Matches your "lugorr" aesthetic */
+}
+
 /* ── 2. NAVIGATION & HEADER ───────────────────────────────────── */
 .header {
     border-bottom: solid 2px var(--bs-blue);

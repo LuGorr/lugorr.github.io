@@ -9,7 +9,7 @@ Currently a second year student in AI Engineering at University of Bologna.
 Email: ludovico.gorrieri@studio.unibo.it
 
 #### Education
-M.E., AI Engineering, Italy - University of Bologna, 2024—Ongoing.\
+M.E., AI Engineering, Italy - University of Bologna, 2024-Ongoing.\
 B.S., Computer Science, Italy - University of Parma, 2021-2024.
 
 #### Research Interests

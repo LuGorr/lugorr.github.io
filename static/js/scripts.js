@@ -63,3 +63,65 @@ window.addEventListener('DOMContentLoaded', event => {
     })
 
 }); 
+
+// Game of Life Implementation
+const canvas = document.getElementById('gameOfLifeCanvas');
+if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let width, height, cellSize, rows, cols, grid;
+
+    function initGame() {
+        const container = canvas.parentElement;
+        width = container.offsetWidth;
+        height = container.offsetHeight;
+        canvas.width = width;
+        canvas.height = height;
+
+        cellSize = 12; // Dimensione dei quadrati
+        cols = Math.ceil(width / cellSize);
+        rows = Math.ceil(height / cellSize);
+
+        // Popolamento iniziale casuale
+        grid = Array.from({ length: cols }, () =>
+            Array.from({ length: rows }, () => Math.random() > 0.85 ? 1 : 0)
+        );
+    }
+
+    function updateAndDraw() {
+        ctx.clearRect(0, 0, width, height);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.1)'; // Colore delle cellule
+
+        let nextGrid = grid.map(arr => [...arr]);
+
+        for (let col = 0; col < cols; col++) {
+            for (let row = 0; row < rows; row++) {
+                if (grid[col][row]) {
+                    ctx.fillRect(col * cellSize, row * cellSize, cellSize - 1, cellSize - 1);
+                }
+
+                let neighbors = 0;
+                for (let i = -1; i < 2; i++) {
+                    for (let j = -1; j < 2; j++) {
+                        if (i === 0 && j === 0) continue;
+                        const x = (col + i + cols) % cols;
+                        const y = (row + j + rows) % rows;
+                        neighbors += grid[x][y];
+                    }
+                }
+
+                if (grid[col][row] === 1 && (neighbors < 2 || neighbors > 3)) nextGrid[col][row] = 0;
+                else if (grid[col][row] === 0 && neighbors === 3) nextGrid[col][row] = 1;
+            }
+        }
+        grid = nextGrid;
+    }
+
+    function loop() {
+        updateAndDraw();
+        setTimeout(() => requestAnimationFrame(loop), 150);
+    }
+
+    window.addEventListener('resize', initGame);
+    initGame();
+    loop();
+}

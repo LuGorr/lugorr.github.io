@@ -1,33 +1,105 @@
-// --- 1. LOGICA GAME OF LIFE ---
-const canvas = document.getElementById('gameOfLifeCanvas');
-if (canvas) {
-    const ctx = canvas.getContext('2d');
-    let width, height, cellSize, rows, cols, grid;
 
-    function initGame() {
-        const container = canvas.parentElement;
-        width = container.offsetWidth;
-        height = container.offsetHeight;
-        canvas.width = width;
-        canvas.height = height;
-        cellSize = 10;
-        cols = Math.ceil(width / cellSize);
-        rows = Math.ceil(height / cellSize);
+
+const content_dir = 'contents/'
+const config_file = 'config.yml'
+const section_names = ['home', 'projects', 'experience']
+
+
+window.addEventListener('DOMContentLoaded', event => {
+
+    // Activate Bootstrap scrollspy on the main nav element
+    const mainNav = document.body.querySelector('#mainNav');
+    if (mainNav) {
+        new bootstrap.ScrollSpy(document.body, {
+            target: '#mainNav',
+            offset: 74,
+        });
+    };
+
+    // Collapse responsive navbar when toggler is visible
+    const navbarToggler = document.body.querySelector('.navbar-toggler');
+    const responsiveNavItems = [].slice.call(
+        document.querySelectorAll('#navbarResponsive .nav-link')
+    );
+    responsiveNavItems.map(function (responsiveNavItem) {
+        responsiveNavItem.addEventListener('click', () => {
+            if (window.getComputedStyle(navbarToggler).display !== 'none') {
+                navbarToggler.click();
+            }
+        });
+    });
+
+
+    // Yaml
+    fetch(content_dir + config_file)
+        .then(response => response.text())
+        .then(text => {
+            const yml = jsyaml.load(text);
+            Object.keys(yml).forEach(key => {
+                try {
+                    document.getElementById(key).innerHTML = yml[key];
+                } catch {
+                    console.log("Unknown id and value: " + key + "," + yml[key].toString())
+                }
+
+            })
+        })
+        .catch(error => console.log(error));
+
+
+    // Marked
+    marked.use({ mangle: false, headerIds: false })
+    section_names.forEach((name, idx) => {
+        fetch(content_dir + name + '.md')
+            .then(response => response.text())
+            .then(markdown => {
+                const html = marked.parse(markdown);
+                document.getElementById(name + '-md').innerHTML = html;
+            }).then(() => {
+                // MathJax
+                MathJax.typeset();
+            })
+            .catch(error => console.log(error));
+    })
+
+}); 
+
+window.addEventListener('load', function() {
+    const canvas = document.getElementById('golCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    let screenWidth, screenHeight, rows, cols, grid;
+    const cellSize = 10;
+
+    function init() {
+        screenWidth = canvas.parentElement.offsetWidth;
+        screenHeight = canvas.parentElement.offsetHeight;
+        canvas.width = screenWidth;
+        canvas.height = screenHeight;
+
+        cols = Math.ceil(screenWidth / cellSize);
+        rows = Math.ceil(screenHeight / cellSize);
+
+        // Inizializzazione griglia casuale
         grid = Array.from({ length: cols }, () =>
-            Array.from({ length: rows }, () => Math.random() > 0.88 ? 1 : 0)
+            Array.from({ length: rows }, () => Math.random() > 0.85 ? 1 : 0)
         );
     }
 
     function draw() {
-        ctx.clearRect(0, 0, width, height);
-        ctx.fillStyle = 'rgba(100, 200, 255, 0.3)'; // Blu tenue hi-tech
+        ctx.clearRect(0, 0, screenWidth, screenHeight);
+        ctx.fillStyle = "rgba(255, 255, 255, 0.15)"; // Colore delle cellule
+
         let nextGrid = grid.map(arr => [...arr]);
 
         for (let col = 0; col < cols; col++) {
             for (let row = 0; row < rows; row++) {
-                if (grid[col][row]) {
+                if (grid[col][row] === 1) {
                     ctx.fillRect(col * cellSize, row * cellSize, cellSize - 1, cellSize - 1);
                 }
+
+                // Logica vicini
                 let neighbors = 0;
                 for (let i = -1; i < 2; i++) {
                     for (let j = -1; j < 2; j++) {
@@ -37,46 +109,26 @@ if (canvas) {
                         neighbors += grid[x][y];
                     }
                 }
-                if (grid[col][row] === 1 && (neighbors < 2 || neighbors > 3)) nextGrid[col][row] = 0;
-                else if (grid[col][row] === 0 && neighbors === 3) nextGrid[col][row] = 1;
+
+                // Regole Conway
+                if (grid[col][row] === 1 && (neighbors < 2 || neighbors > 3)) {
+                    nextGrid[col][row] = 0;
+                } else if (grid[col][row] === 0 && neighbors === 3) {
+                    nextGrid[col][row] = 1;
+                }
             }
         }
         grid = nextGrid;
     }
 
-    function loop() {
+    function animate() {
         draw();
-        setTimeout(() => requestAnimationFrame(loop), 120);
+        setTimeout(() => {
+            requestAnimationFrame(animate);
+        }, 100); // 10 FPS per non distrarre troppo
     }
 
-    window.addEventListener('resize', initGame);
-    initGame();
-    loop();
-}
-
-// --- 2. LOGICA ORIGINALE TEMPLATE (CARICAMENTO YAML) ---
-async function loadContent() {
-    try {
-        const response = await fetch('static/data/index.yml');
-        const text = await response.text();
-        const data = jsyaml.load(text);
-
-        // Popolamento dei campi
-        document.getElementById('title').innerText = data.title || "Academic Page";
-        document.getElementById('page-top-title').innerText = data.name || "Home";
-        document.getElementById('top-section-bg-text').innerText = data.banner_text || "";
-        document.getElementById('home-subtitle').innerText = data.home_subtitle || "About Me";
-        document.getElementById('copyright-text').innerText = data.copyright || "";
-
-        // Markdown rendering
-        if(data.home_md) document.getElementById('home-md').innerHTML = marked.parse(data.home_md);
-        if(data.projects_md) document.getElementById('projects-md').innerHTML = marked.parse(data.projects_md);
-        if(data.experience_md) document.getElementById('experience-md').innerHTML = marked.parse(data.experience_md);
-
-    } catch (e) {
-        console.error("Errore nel caricamento del file YAML:", e);
-    }
-}
-
-// Avvia il caricamento dei contenuti
-document.addEventListener('DOMContentLoaded', loadContent);
+    window.addEventListener('resize', init);
+    init();
+    animate();
+});

@@ -48,6 +48,10 @@ body {
 
 /* ── 4. MONOSPACE SECTION HEADERS (Accent Font) ──────────────── */
 section header h2,
+section .main-body h1, 
+section .main-body h2, 
+section .main-body h3, 
+section .main-body h4,
 #home-subtitle, 
 #projects-subtitle, 
 #experience-subtitle {
@@ -101,13 +105,18 @@ section .main-body b {
     background: #f8f9fa !important; /* Subtle gray for contrast */
 }
 
-/* PDF Toggle Styling */
-.pdf-viewer-container {
+ .pdf-viewer-container {
     display: none;
     margin-top: 12px;
+    width: 100%;
+    border: 1px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    transition: box-shadow 0.2s ease;
+
 }
 
-.pdf-viewer-container.open { display: block; }
+.pdf-viewer-container.open {
+    display: block;
+} 
